@@ -92,4 +92,4 @@ README.md
 
 ## Published website
 
-https://alwoosh0.github.io/WEB_Technologies_Frontend_MidTerm/
+https://alwoosh0.github.io/WEB_Technologies_Frontend_EndTerm/
