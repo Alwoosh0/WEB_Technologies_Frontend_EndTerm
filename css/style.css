@@ -504,3 +504,151 @@ a {
         font-size: 42px;
     }
 }
+
+.filter-panel {
+    background-color: var(--light);
+    border-radius: var(--radius);
+    padding: 20px;
+}
+
+.filter-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-btn {
+    background-color: var(--white);
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-family: var(--font-main);
+}
+
+.filter-btn:hover,
+.filter-btn:focus {
+    background-color: #dbeafe;
+}
+
+.filter-btn.active {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.no-results {
+    text-align: center;
+    padding: 30px 0;
+}
+
+.job-form {
+    background-color: var(--light);
+    border-radius: var(--radius);
+    padding: 25px;
+}
+
+.job-form h3 {
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+#cancel-btn {
+    display: none;
+}
+
+.jobs-table td:last-child {
+    white-space: nowrap;
+}
+
+#strength-bar {
+    width: 0;
+    transition: width 0.3s;
+}
+
+#reg-alert {
+    display: none;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 160px;
+    object-fit: contain;
+    background-color: var(--light);
+    border-radius: var(--radius);
+    padding: 15px;
+    cursor: pointer;
+}
+
+.lightbox {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 23, 42, 0.9);
+    z-index: 1000;
+    text-align: center;
+    padding-top: 80px;
+}
+
+#lightbox-caption {
+    color: var(--white);
+    margin-top: 15px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 40px;
+}
+
+.lightbox-arrow {
+    position: absolute;
+    bottom: 40px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: var(--white);
+    font-size: 30px;
+    padding: 10px 18px;
+    border-radius: 8px;
+}
+
+.lightbox-arrow:hover,
+.lightbox-arrow:focus,
+.lightbox-close:hover,
+.lightbox-close:focus {
+    color: var(--accent);
+}
+
+.lightbox-prev {
+    left: 20px;
+}
+
+.lightbox-next {
+    right: 20px;
+}
+
+#lightbox-img {
+    max-width: 85%;
+    max-height: 60vh;
+    background-color: var(--white);
+    border-radius: var(--radius);
+    padding: 20px;
+}
+
+@media (min-width: 768px) {
+    .lightbox-arrow {
+        top: 50%;
+        bottom: auto;
+    }
+
+    #lightbox-img {
+        max-width: 70%;
+        max-height: 65vh;
+    }
+}

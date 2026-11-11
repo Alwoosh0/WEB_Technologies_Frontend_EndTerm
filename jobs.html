@@ -22,6 +22,7 @@
                     <li><a href="jobs.html" class="active">Jobs</a></li>
                     <li><a href="companies.html">Companies</a></li>
                     <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html#registration">Register</a></li>
                     <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
@@ -39,92 +40,66 @@
         <section class="py-5">
             <div class="container">
                 <h2 class="section-title mb-4">Latest vacancies</h2>
-                <div class="row g-4">
-                <div class="col-12 col-md-6 col-lg-4">
-                    <article class="job-card">
-                        <span class="job-badge">Full-time</span>
-                        <img src="images/novatech.svg" alt="NovaTech logo" class="job-logo">
-                        <h3 class="job-title">Junior Frontend Developer</h3>
-                        <p class="job-company">NovaTech</p>
-                        <ul class="job-info">
-                            <li>Astana</li>
-                            <li class="job-salary">400 000 – 600 000 ₸</li>
-                        </ul>
-                        <a href="contact.html" class="btn btn-main btn-sm">Apply now</a>
-                    </article>
+
+                <div class="filter-panel mb-4">
+                    <label for="job-search" class="form-label">Search vacancies</label>
+                    <input type="text" id="job-search" class="form-control" placeholder="Position, company or city">
+
+                    <div class="filter-buttons mt-3">
+                        <button type="button" class="filter-btn active" data-category="All">All</button>
+                        <button type="button" class="filter-btn" data-category="Full-time">Full-time</button>
+                        <button type="button" class="filter-btn" data-category="Part-time">Part-time</button>
+                        <button type="button" class="filter-btn" data-category="Internship">Internship</button>
+                        <button type="button" class="filter-btn" data-category="Remote">Remote</button>
+                    </div>
+
+                    <p id="result-count" class="mt-3 mb-0"></p>
                 </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <article class="job-card">
-                        <span class="job-badge">Internship</span>
-                        <img src="images/datanomad.svg" alt="DataNomad logo" class="job-logo">
-                        <h3 class="job-title">Data Analyst Intern</h3>
-                        <p class="job-company">DataNomad</p>
-                        <ul class="job-info">
-                            <li>Almaty</li>
-                            <li class="job-salary">200 000 ₸</li>
-                        </ul>
-                        <a href="contact.html" class="btn btn-main btn-sm">Apply now</a>
-                    </article>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <article class="job-card">
-                        <span class="job-badge">Remote</span>
-                        <img src="images/steppesoft.svg" alt="Steppe Soft logo" class="job-logo">
-                        <h3 class="job-title">Backend Developer (Java)</h3>
-                        <p class="job-company">Steppe Soft</p>
-                        <ul class="job-info">
-                            <li>Remote</li>
-                            <li class="job-salary">700 000 – 1 000 000 ₸</li>
-                        </ul>
-                        <a href="contact.html" class="btn btn-main btn-sm">Apply now</a>
-                    </article>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <article class="job-card">
-                        <span class="job-badge">Full-time</span>
-                        <img src="images/altyndesign.svg" alt="Altyn Design logo" class="job-logo" loading="lazy">
-                        <h3 class="job-title">UI/UX Designer</h3>
-                        <p class="job-company">Altyn Design</p>
-                        <ul class="job-info">
-                            <li>Almaty</li>
-                            <li class="job-salary">450 000 – 650 000 ₸</li>
-                        </ul>
-                        <a href="contact.html" class="btn btn-main btn-sm">Apply now</a>
-                    </article>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <article class="job-card">
-                        <span class="job-badge">Full-time</span>
-                        <img src="images/qazlogistics.svg" alt="QazLogistics logo" class="job-logo" loading="lazy">
-                        <h3 class="job-title">Logistics Coordinator</h3>
-                        <p class="job-company">QazLogistics</p>
-                        <ul class="job-info">
-                            <li>Shymkent</li>
-                            <li class="job-salary">350 000 ₸</li>
-                        </ul>
-                        <a href="contact.html" class="btn btn-main btn-sm">Apply now</a>
-                    </article>
-                </div>
-                <div class="col-12 col-md-6 col-lg-4">
-                    <article class="job-card">
-                        <span class="job-badge">Part-time</span>
-                        <img src="images/eduspark.svg" alt="EduSpark logo" class="job-logo" loading="lazy">
-                        <h3 class="job-title">Marketing Assistant</h3>
-                        <p class="job-company">EduSpark</p>
-                        <ul class="job-info">
-                            <li>Astana</li>
-                            <li class="job-salary">250 000 ₸</li>
-                        </ul>
-                        <a href="contact.html" class="btn btn-main btn-sm">Apply now</a>
-                    </article>
-                </div>
-                </div>
+
+                <div id="job-cards" class="row g-4"></div>
             </div>
         </section>
 
         <section class="pb-5">
             <div class="container">
-                <h2 class="section-title mb-4">All vacancies</h2>
+                <h2 class="section-title mb-4">Manage vacancies</h2>
+
+                <form id="job-form" class="job-form mb-4">
+                    <h3 id="form-heading">Add vacancy</h3>
+                    <div class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <label for="job-title" class="form-label">Position</label>
+                            <input type="text" id="job-title" class="form-control" required maxlength="100">
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="job-company" class="form-label">Company</label>
+                            <input type="text" id="job-company" class="form-control" required maxlength="100">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="job-city" class="form-label">City</label>
+                            <input type="text" id="job-city" class="form-control" required maxlength="50">
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="job-type" class="form-label">Job type</label>
+                            <select id="job-type" class="form-select">
+                                <option value="Full-time">Full-time</option>
+                                <option value="Part-time">Part-time</option>
+                                <option value="Internship">Internship</option>
+                                <option value="Remote">Remote</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="job-salary" class="form-label">Salary</label>
+                            <input type="text" id="job-salary" class="form-control" placeholder="300 000 ₸" required maxlength="50">
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button type="submit" id="save-btn" class="btn btn-main">Add vacancy</button>
+                        <button type="button" id="cancel-btn" class="btn btn-light">Cancel</button>
+                    </div>
+                    <p id="form-status" class="mt-3 mb-0"></p>
+                </form>
+
                 <div class="table-responsive">
                     <table class="jobs-table">
                         <thead>
@@ -134,66 +109,10 @@
                                 <th>City</th>
                                 <th>Type</th>
                                 <th>Salary</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Junior Frontend Developer</td>
-                                <td>NovaTech</td>
-                                <td>Astana</td>
-                                <td>Full-time</td>
-                                <td>400 000 – 600 000 ₸</td>
-                            </tr>
-                            <tr>
-                                <td>Data Analyst Intern</td>
-                                <td>DataNomad</td>
-                                <td>Almaty</td>
-                                <td>Internship</td>
-                                <td>200 000 ₸</td>
-                            </tr>
-                            <tr>
-                                <td>Backend Developer (Java)</td>
-                                <td>Steppe Soft</td>
-                                <td>Remote</td>
-                                <td>Remote</td>
-                                <td>700 000 – 1 000 000 ₸</td>
-                            </tr>
-                            <tr>
-                                <td>UI/UX Designer</td>
-                                <td>Altyn Design</td>
-                                <td>Almaty</td>
-                                <td>Full-time</td>
-                                <td>450 000 – 650 000 ₸</td>
-                            </tr>
-                            <tr>
-                                <td>Logistics Coordinator</td>
-                                <td>QazLogistics</td>
-                                <td>Shymkent</td>
-                                <td>Full-time</td>
-                                <td>350 000 ₸</td>
-                            </tr>
-                            <tr>
-                                <td>Marketing Assistant</td>
-                                <td>EduSpark</td>
-                                <td>Astana</td>
-                                <td>Part-time</td>
-                                <td>250 000 ₸</td>
-                            </tr>
-                            <tr>
-                                <td>Junior Engineer</td>
-                                <td>GreenField Energy</td>
-                                <td>Shymkent</td>
-                                <td>Full-time</td>
-                                <td>380 000 ₸</td>
-                            </tr>
-                            <tr>
-                                <td>Medical Administrator</td>
-                                <td>MedLine Clinic</td>
-                                <td>Astana</td>
-                                <td>Full-time</td>
-                                <td>300 000 ₸</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="jobs-body"></tbody>
                     </table>
                 </div>
             </div>
@@ -228,5 +147,7 @@
         </div>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
