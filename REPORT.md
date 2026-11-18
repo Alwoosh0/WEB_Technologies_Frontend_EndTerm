@@ -6,9 +6,9 @@
 
 **Members:** Almansur Maxym, Adilbek Kairov
 
-**Website:** https://alwoosh0.github.io/WEB_Technologies_Frontend_MidTerm/
+**Website:** https://alwoosh0.github.io/WEB_Technologies_Frontend_EndTerm/
 
-**Repository:** https://github.com/alwoosh0/WEB_Technologies_Frontend_MidTerm
+**Repository:** https://github.com/alwoosh0/WEB_Technologies_Frontend_EndTerm
 
 ---
 
@@ -109,5 +109,5 @@ The Jobs page loads real vacancies from the free Arbeitnow API (`https://www.arb
 
 ## 6. Links
 
-- Website: https://alwoosh0.github.io/WEB_Technologies_Frontend_MidTerm/
-- Repository: https://github.com/alwoosh0/WEB_Technologies_Frontend_MidTerm
+- Website: https://alwoosh0.github.io/WEB_Technologies_Frontend_EndTerm/
+- Repository: https://github.com/alwoosh0/WEB_Technologies_Frontend_EndTerm

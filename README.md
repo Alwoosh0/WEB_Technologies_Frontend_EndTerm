@@ -4,9 +4,9 @@
 
 **Group members:** Almansur Maxym, Adilbek Kairov (IT-2501)
 
-**Website:** https://alwoosh0.github.io/WEB_Technologies_Frontend_MidTerm/
+**Website:** https://alwoosh0.github.io/WEB_Technologies_Frontend_EndTerm/
 
-**Repository:** https://github.com/alwoosh0/WEB_Technologies_Frontend_MidTerm
+**Repository:** https://github.com/alwoosh0/WEB_Technologies_Frontend_EndTerm
 
 ## Description
 
