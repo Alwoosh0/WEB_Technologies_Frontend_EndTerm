@@ -6,7 +6,7 @@
 
 **Website:** https://alwoosh0.github.io/WEB_Technologies_Frontend_EndTerm/
 
-**Repository:** https://github.com/alwoosh0/WEB_Technologies_Frontend_EndTerm
+**Repository:** https://github.com/Alwoosh0/WEB_Technologies_Frontend_EndTerm
 
 ## Description
 
@@ -36,5 +36,9 @@ JobFinder is a responsive multi-page website for finding jobs in Kazakhstan. Use
 ## Technologies
 
 HTML5, CSS3, Bootstrap 5.3, JavaScript, jQuery 3.7, Fetch API, localStorage, Arbeitnow API, Google Fonts, GitHub Pages
+
+## AI usage
+
+Claude by Anthropic was used for debugging, for explaining some parts of the code and for help with writing some parts of the code. AI usage is also stated in the footer of every page of the website.
 
 The full report is in [REPORT.md](REPORT.md).

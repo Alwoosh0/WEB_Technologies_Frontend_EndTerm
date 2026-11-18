@@ -8,7 +8,7 @@
 
 **Website:** https://alwoosh0.github.io/WEB_Technologies_Frontend_EndTerm/
 
-**Repository:** https://github.com/alwoosh0/WEB_Technologies_Frontend_EndTerm
+**Repository:** https://github.com/Alwoosh0/WEB_Technologies_Frontend_EndTerm
 
 ---
 
@@ -46,7 +46,7 @@ images/           SVG images and logos
 ## 3. Implemented features
 
 ### 3.1 HTML and CSS
-- Semantic HTML5: `header`, `nav`, `main`, `section`, `article`, `aside`, `address`, `footer`
+- Semantic HTML5: `header`, `nav`, `main`, `section`, `article`, `address`, `footer`
 - One external stylesheet with CSS variables, the Poppins font and a consistent color palette
 - Flexbox (header, navigation, filters) and CSS Grid (categories, statistics)
 - Mobile-first responsive design with media queries at 768px and 992px and the Bootstrap grid
@@ -107,7 +107,11 @@ The Jobs page loads real vacancies from the free Arbeitnow API (`https://www.arb
 | Adilbek Kairov | Theme toggle, sign in with localStorage, FAQ, registration form validation, image gallery |
 | Together | Midterm design and pages, responsive testing, report and publishing |
 
-## 6. Links
+## 6. AI usage
+
+AI assistance: Claude by Anthropic was used for debugging, for explaining some parts of the code and for help with writing some parts of the code. AI usage is also stated in the footer of every page of the website.
+
+## 7. Links
 
 - Website: https://alwoosh0.github.io/WEB_Technologies_Frontend_EndTerm/
-- Repository: https://github.com/alwoosh0/WEB_Technologies_Frontend_EndTerm
+- Repository: https://github.com/Alwoosh0/WEB_Technologies_Frontend_EndTerm

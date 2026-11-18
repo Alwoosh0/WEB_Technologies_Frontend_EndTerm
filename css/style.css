@@ -792,3 +792,18 @@ a {
     align-items: center;
     gap: 15px;
 }
+
+.ai-note {
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.ai-note a {
+    color: #cbd5e1;
+    text-decoration: underline;
+}
+
+.ai-note a:hover,
+.ai-note a:focus {
+    color: var(--accent);
+}
