@@ -1,5 +1,74 @@
 $(document).ready(function () {
 
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    function updateThemeButton() {
+        if ($("html").attr("data-bs-theme") === "dark") {
+            $("#theme-toggle").text("☀️ Light");
+        } else {
+            $("#theme-toggle").text("🌙 Dark");
+        }
+    }
+
+    $("#theme-toggle").click(function () {
+        if ($("html").attr("data-bs-theme") === "dark") {
+            $("html").removeAttr("data-bs-theme");
+            localStorage.setItem("theme", "light");
+        } else {
+            $("html").attr("data-bs-theme", "dark");
+            localStorage.setItem("theme", "dark");
+        }
+
+        updateThemeButton();
+    });
+
+    updateThemeButton();
+
+    function getUser() {
+        const savedUser = localStorage.getItem("user");
+
+        if (savedUser === null) {
+            return null;
+        }
+
+        return JSON.parse(savedUser);
+    }
+
+    function updateAuthUI() {
+        const user = getUser();
+
+        if (user) {
+            $("#signin-link").parent().hide();
+            $("#user-item").css("display", "flex");
+            $("#user-greeting").text("Hi, " + user.name);
+            $("#signin-form").hide();
+            $("#signed-in-box").show();
+            $("#profile-name").text(user.name);
+            $("#profile-email").text(user.email);
+            $("#job-form").show();
+            $("#signin-required").hide();
+        } else {
+            $("#signin-link").parent().show();
+            $("#user-item").hide();
+            $("#signin-form").show();
+            $("#signed-in-box").hide();
+            $("#job-form").hide();
+            $("#signin-required").show();
+        }
+    }
+
+    function signOut() {
+        localStorage.removeItem("user");
+        updateAuthUI();
+
+        if ($("#jobs-body").length) {
+            renderTable();
+        }
+    }
+
+    $("#signout-btn").click(signOut);
+    $("#signout-page-btn").click(signOut);
+
     const jobs = [
         { id: 1, title: "Junior Frontend Developer", company: "NovaTech", city: "Astana", type: "Full-time", salary: "400 000 - 600 000 ₸", logo: "images/novatech.svg" },
         { id: 2, title: "Data Analyst Intern", company: "DataNomad", city: "Almaty", type: "Internship", salary: "200 000 ₸", logo: "images/datanomad.svg" },
@@ -63,6 +132,12 @@ $(document).ready(function () {
             row.append($("<td>").text(job.type));
             row.append($("<td>").text(job.salary));
 
+            if (getUser() === null) {
+                row.append($("<td>").text("Sign in to edit"));
+                $("#jobs-body").append(row);
+                return;
+            }
+
             const editBtn = $("<button>").attr("type", "button").addClass("btn btn-sm btn-outline-primary me-2").text("Edit");
             const deleteBtn = $("<button>").attr("type", "button").addClass("btn btn-sm btn-outline-danger").text("Delete");
 
@@ -95,7 +170,8 @@ $(document).ready(function () {
 
     function resetForm() {
         editId = null;
-        $("#job-form")[0].reset();
+        $("#job-title, #job-company, #job-city, #job-salary").val("");
+        $("#job-type").val("Full-time");
         $("#form-heading").text("Add vacancy");
         $("#save-btn").text("Add vacancy");
         $("#cancel-btn").hide();
@@ -197,8 +273,6 @@ $(document).ready(function () {
     }
 
     if ($("#registration-form").length) {
-        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
         function setFeedback(input, feedback, isValid, message) {
             if (isValid) {
                 input.removeClass("is-invalid").addClass("is-valid");
@@ -315,9 +389,8 @@ $(document).ready(function () {
                     .text("Registration successful! Welcome to JobFinder.")
                     .fadeIn();
 
-                this.reset();
-                $("#registration-form input").removeClass("is-valid is-invalid");
-                $("#registration-form .form-text").not("#strength-text").text("");
+                $("#registration-form input").val("").removeClass("is-valid is-invalid");
+                $("#name-feedback, #email-feedback, #password-feedback, #confirm-feedback").text("");
                 $("#strength-bar").css("width", "0%");
                 $("#strength-text").text("Password strength: not entered");
             } else {
@@ -341,7 +414,15 @@ $(document).ready(function () {
         }
 
         function changeImage(step) {
-            currentIndex = (currentIndex + step + images.length) % images.length;
+            currentIndex = currentIndex + step;
+
+            if (currentIndex < 0) {
+                currentIndex = images.length - 1;
+            }
+
+            if (currentIndex >= images.length) {
+                currentIndex = 0;
+            }
 
             $("#lightbox-img").fadeOut(200, function () {
                 showImage(currentIndex);
@@ -390,4 +471,158 @@ $(document).ready(function () {
             }
         });
     }
+
+    if ($("#signin-form").length) {
+        function showSigninFeedback(input, feedback, isValid, message) {
+            if (isValid) {
+                input.removeClass("is-invalid").addClass("is-valid");
+                feedback.removeClass("text-danger").text("");
+            } else {
+                input.removeClass("is-valid").addClass("is-invalid");
+                feedback.addClass("text-danger").text(message);
+            }
+        }
+
+        $("#signin-form").submit(function (event) {
+            event.preventDefault();
+
+            const name = $("#signin-name").val().trim();
+            const email = $("#signin-email").val().trim();
+            const password = $("#signin-password").val();
+
+            const nameOk = name.length >= 2;
+            const emailOk = emailPattern.test(email);
+            const passwordOk = password.length >= 8;
+
+            showSigninFeedback($("#signin-name"), $("#signin-name-feedback"), nameOk, "Name must have at least 2 characters.");
+            showSigninFeedback($("#signin-email"), $("#signin-email-feedback"), emailOk, "Please enter a valid email.");
+            showSigninFeedback($("#signin-password"), $("#signin-password-feedback"), passwordOk, "Password must have at least 8 characters.");
+
+            if (!nameOk || !emailOk || !passwordOk) {
+                return;
+            }
+
+            const user = {
+                name: name,
+                email: email
+            };
+
+            localStorage.setItem("user", JSON.stringify(user));
+            $("#signin-form input").val("").removeClass("is-valid is-invalid");
+            updateAuthUI();
+        });
+    }
+
+    $(".faq-question").click(function () {
+        const answer = $(this).next(".faq-answer");
+        const icon = $(this).find(".faq-icon");
+
+        answer.slideToggle(300, function () {
+            if (answer.is(":visible")) {
+                icon.text("−");
+            } else {
+                icon.text("+");
+            }
+        });
+    });
+
+    if ($("#api-jobs").length) {
+        let apiJobs = [];
+        let apiPage = 1;
+
+        async function loadApiJobs() {
+            $("#api-status").removeClass("text-danger").text("Loading vacancies...");
+            $("#api-jobs").empty();
+            $("#api-page").text("Page " + apiPage);
+            $("#api-prev").prop("disabled", apiPage === 1);
+
+            try {
+                const response = await fetch("https://www.arbeitnow.com/api/job-board-api?page=" + apiPage);
+
+                if (!response.ok) {
+                    throw new Error("Server error: " + response.status);
+                }
+
+                const result = await response.json();
+                apiJobs = result.data;
+                renderApiJobs();
+            } catch (error) {
+                apiJobs = [];
+                console.error(error);
+                $("#api-status")
+                    .addClass("text-danger")
+                    .text("Could not load vacancies. Please check your internet connection and click Refresh.");
+            }
+        }
+
+        function renderApiJobs() {
+            const searchText = $("#api-search").val().trim().toLowerCase();
+            const remoteOnly = $("#api-remote").is(":checked");
+
+            const filtered = apiJobs.filter(function (job) {
+                const tags = job.tags || [];
+                const text = (job.title + " " + job.company_name + " " + job.location + " " + tags.join(" ")).toLowerCase();
+                const matchesSearch = text.includes(searchText);
+                const matchesRemote = !remoteOnly || job.remote === true;
+                return matchesSearch && matchesRemote;
+            });
+
+            $("#api-jobs").empty();
+
+            filtered.forEach(function (job) {
+                const card = $("<article>").addClass("api-card");
+                card.append($("<h3>").text(job.title));
+                card.append($("<p>").addClass("mb-1").text(job.company_name));
+                card.append($("<p>").addClass("mb-2").text(job.location));
+
+                if (job.remote) {
+                    card.append($("<span>").addClass("api-tag api-remote").text("Remote"));
+                }
+
+                const tags = job.tags || [];
+
+                tags.slice(0, 3).forEach(function (tag) {
+                    card.append($("<span>").addClass("api-tag").text(tag));
+                });
+
+                const date = new Date(job.created_at * 1000).toLocaleDateString();
+                card.append($("<p>").addClass("small mt-2").text("Posted: " + date));
+                card.append($("<a>").addClass("btn btn-main btn-sm").attr({ href: job.url, target: "_blank" }).text("View job"));
+
+                const column = $("<div>").addClass("col-12 col-md-6 col-lg-4").append(card);
+                $("#api-jobs").append(column);
+            });
+
+            if (apiJobs.length === 0) {
+                $("#api-status").text("No vacancies on this page.");
+            } else if (filtered.length === 0) {
+                $("#api-status").text("No vacancies match your search.");
+            } else {
+                $("#api-status").text("Showing " + filtered.length + " of " + apiJobs.length + " vacancies.");
+            }
+        }
+
+        $("#api-search").on("input", renderApiJobs);
+        $("#api-remote").change(renderApiJobs);
+
+        $("#api-refresh").click(function () {
+            loadApiJobs();
+        });
+
+        $("#api-next").click(function () {
+            apiPage++;
+            loadApiJobs();
+        });
+
+        $("#api-prev").click(function () {
+            if (apiPage > 1) {
+                apiPage--;
+                loadApiJobs();
+            }
+        });
+
+        loadApiJobs();
+    }
+
+    updateAuthUI();
 });
